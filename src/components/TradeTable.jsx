@@ -16,19 +16,20 @@ export default function TradeTable({ trades, onDelete }) {
           <thead className="bg-slate-50 text-slate-600">
             <tr>
               <th className="text-left px-4 py-3">Date</th>
-              <th className="text-left px-4 py-3">Symbol</th>
+              <th className="text-left px-4 py-3">Pair</th>
               <th className="text-left px-4 py-3">Side</th>
               <th className="text-right px-4 py-3">Entry</th>
               <th className="text-right px-4 py-3">Exit</th>
               <th className="text-right px-4 py-3">Size</th>
               <th className="text-right px-4 py-3">P/L</th>
+              <th className="text-left px-4 py-3">Chart</th>
               <th className="text-right px-4 py-3"> </th>
             </tr>
           </thead>
           <tbody>
             {trades.length === 0 ? (
               <tr>
-                <td colSpan={8} className="text-center text-slate-500 py-8">No trades yet. Add your first one above.</td>
+                <td colSpan={9} className="text-center text-slate-500 py-8">No trades yet. Add your first one above.</td>
               </tr>
             ) : (
               trades.map((t) => (
@@ -42,6 +43,13 @@ export default function TradeTable({ trades, onDelete }) {
                   <td className="px-4 py-3 text-right">{formatCurrency(t.exit)}</td>
                   <td className="px-4 py-3 text-right">{t.size}</td>
                   <td className={`px-4 py-3 text-right font-semibold ${t.pnl >= 0 ? 'text-emerald-600' : 'text-rose-600'}`}>{formatCurrency(t.pnl)}</td>
+                  <td className="px-4 py-3">
+                    {t.chart ? (
+                      <img src={t.chart} alt={`Chart ${t.symbol}`} className="h-10 w-16 object-cover rounded border border-slate-200" />
+                    ) : (
+                      <span className="text-xs text-slate-400">—</span>
+                    )}
+                  </td>
                   <td className="px-4 py-3 text-right">
                     <button onClick={() => onDelete(t.id)} className="text-rose-600 hover:text-rose-700 text-xs">Delete</button>
                   </td>

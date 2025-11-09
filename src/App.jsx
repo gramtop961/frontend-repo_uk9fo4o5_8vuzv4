@@ -3,6 +3,7 @@ import Header from './components/Header.jsx';
 import TradeForm from './components/TradeForm.jsx';
 import TradeTable from './components/TradeTable.jsx';
 import StatsSummary from './components/StatsSummary.jsx';
+import Insights from './components/Insights.jsx';
 
 function App() {
   const [trades, setTrades] = useState(() => {
@@ -37,22 +38,22 @@ function App() {
   }, [trades]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50 text-slate-900">
+    <div className="min-h-screen bg-black text-slate-100">
       <Header />
 
-      <main className="mx-auto max-w-6xl px-4 py-6">
+      <main className="mx-auto max-w-6xl px-4 py-8">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
           <div>
             <h2 className="text-2xl font-semibold">Your Journal</h2>
-            <p className="text-sm text-slate-500">Capture every trade with intent, review with clarity.</p>
+            <p className="text-sm text-slate-400">Crypto-focused logging with chart uploads and performance tracking.</p>
           </div>
-          <div className="flex items-center gap-2 text-xs text-slate-500">
+          <div className="flex items-center gap-2 text-xs text-slate-400">
             {latestSymbols.length > 0 && (
               <>
                 <span>Recently traded:</span>
                 <div className="flex items-center gap-1">
                   {latestSymbols.map((s) => (
-                    <span key={s} className="px-2 py-1 rounded-full bg-slate-200/70 text-slate-700 font-medium">{s}</span>
+                    <span key={s} className="px-2 py-1 rounded-full bg-slate-800 text-slate-200 border border-slate-700 font-medium">{s}</span>
                   ))}
                 </div>
               </>
@@ -69,11 +70,12 @@ function App() {
             <TradeForm onAdd={addTrade} />
             {trades.length > 0 && (
               <div className="mt-3 flex justify-end">
-                <button onClick={clearAll} className="text-xs text-rose-600 hover:text-rose-700">Clear all</button>
+                <button onClick={clearAll} className="text-xs text-rose-400 hover:text-rose-300">Clear all</button>
               </div>
             )}
           </div>
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 space-y-6">
+            <Insights trades={trades} />
             <TradeTable trades={trades} onDelete={deleteTrade} />
           </div>
         </div>
